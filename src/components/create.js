@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
 import { arrayed } from "../utils";
+import { baseURL } from "../conf";
 
  
 export default function Create() {
@@ -26,7 +27,7 @@ export default function Create() {
    // When a post request is sent to the create url, we'll add a new record to the database.
    const newQuestion = { ...form };
  
-   await fetch("http://localhost:5000/question/add", {
+   await fetch(`${baseURL}/question/add`, {
      method: "POST",
      headers: {
        "Content-Type": "application/json",

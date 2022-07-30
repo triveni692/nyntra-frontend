@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router";
 import { arrayed } from "../utils";
+import { baseURL } from "../conf";
  
 export default function Edit() {
  const [form, setForm] = useState({
@@ -15,7 +16,7 @@ export default function Edit() {
  useEffect(() => {
    async function fetchData() {
      const id = params.id.toString();
-     const response = await fetch(`http://localhost:5000/question/${params.id.toString()}`);
+     const response = await fetch(`${baseURL}/question/${params.id.toString()}`);
  
      if (!response.ok) {
        const message = `An error has occurred: ${response.statusText}`;
@@ -55,7 +56,7 @@ export default function Edit() {
    };
 
    // This will send a post request to update the data in the database.
-   await fetch(`http://localhost:5000/update/${params.id}`, {
+   await fetch(`${baseURL}/update/${params.id}`, {
      method: "POST",
      body: JSON.stringify(editedQuestion),
      headers: {

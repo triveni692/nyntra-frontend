@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { baseURL } from "../conf";
  
 const Question = (props) => (
  <tr>
@@ -26,7 +27,7 @@ export default function QuestionList() {
  // This method fetches the questions from the database.
  useEffect(() => {
    async function getQuestions() {
-     const response = await fetch(`http://localhost:5000/question/`);
+     const response = await fetch(`${baseURL}/question/`);
  
      if (!response.ok) {
        const message = `An error occurred: ${response.statusText}`;
