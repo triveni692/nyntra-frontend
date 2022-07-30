@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
+import { arrayed } from "../utils";
+
  
 export default function Create() {
  const [form, setForm] = useState({
-   name: "",
-   position: "",
-   level: "",
+   question: "",
+   answer: "",
+   options: [],
+   tags: [],
  });
  const navigate = useNavigate();
  
@@ -21,91 +24,78 @@ export default function Create() {
    e.preventDefault();
  
    // When a post request is sent to the create url, we'll add a new record to the database.
-   const newPerson = { ...form };
+   const newQuestion = { ...form };
  
-   await fetch("http://localhost:5000/record/add", {
+   await fetch("http://localhost:5000/question/add", {
      method: "POST",
      headers: {
        "Content-Type": "application/json",
      },
-     body: JSON.stringify(newPerson),
+     body: JSON.stringify(newQuestion),
    })
    .catch(error => {
      window.alert(error);
      return;
    });
  
-   setForm({ name: "", position: "", level: "" });
+   setForm({ question: "", answer: "", options: [], "tags": [] });
    navigate("/");
  }
  
  // This following section will display the form that takes the input from the user.
  return (
    <div>
-     <h3>Create New Record</h3>
+     <h3>Create New Question</h3>
      <form onSubmit={onSubmit}>
        <div className="form-group">
-         <label htmlFor="name">Name</label>
+         <label htmlFor="question">Question</label>
          <input
            type="text"
            className="form-control"
-           id="name"
-           value={form.name}
-           onChange={(e) => updateForm({ name: e.target.value })}
+           id="question"
+           value={form.question}
+           onChange={(e) => updateForm({ question: e.target.value })}
          />
        </div>
        <div className="form-group">
-         <label htmlFor="position">Position</label>
+         <label htmlFor="answer">Answer</label>
          <input
            type="text"
            className="form-control"
-           id="position"
-           value={form.position}
-           onChange={(e) => updateForm({ position: e.target.value })}
+           id="answer"
+           value={form.answer}
+           onChange={(e) => updateForm({ answer: e.target.value })}
          />
        </div>
+       
        <div className="form-group">
-         <div className="form-check form-check-inline">
-           <input
-             className="form-check-input"
-             type="radio"
-             name="positionOptions"
-             id="positionIntern"
-             value="Intern"
-             checked={form.level === "Intern"}
-             onChange={(e) => updateForm({ level: e.target.value })}
-           />
-           <label htmlFor="positionIntern" className="form-check-label">Intern</label>
-         </div>
-         <div className="form-check form-check-inline">
-           <input
-             className="form-check-input"
-             type="radio"
-             name="positionOptions"
-             id="positionJunior"
-             value="Junior"
-             checked={form.level === "Junior"}
-             onChange={(e) => updateForm({ level: e.target.value })}
-           />
-           <label htmlFor="positionJunior" className="form-check-label">Junior</label>
-         </div>
-         <div className="form-check form-check-inline">
-           <input
-             className="form-check-input"
-             type="radio"
-             name="positionOptions"
-             id="positionSenior"
-             value="Senior"
-             checked={form.level === "Senior"}
-             onChange={(e) => updateForm({ level: e.target.value })}
-           />
-           <label htmlFor="positionSenior" className="form-check-label">Senior</label>
-         </div>
+         <label htmlFor="options">Options</label>
+         <input
+           type="text"
+           className="form-control"
+           id="options"
+           value={form.options.join(';')}
+           onChange={(e) => updateForm({ options: arrayed(e.target.value) })}
+         />
        </div>
+
+       <div className="form-group">
+         <label htmlFor="tags">Tags</label>
+         <input
+           type="text"
+           className="form-control"
+           id="tags"
+           value={form.tags.join(';')}
+           onChange={(e) => updateForm({ tags: arrayed(e.target.value) })}
+         />
+       </div>
+
+       <br/>
+       
        <div className="form-group">
          <input
            type="submit"
-           value="Create person"
+           value="Create Question"
            className="btn btn-primary"
          />
        </div>
