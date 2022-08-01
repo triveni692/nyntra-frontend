@@ -56,8 +56,8 @@ export default function ContestList() {
  // This following section will display the table with the contests of individuals.
  return (
    <div>
-     <h3>Contests List</h3>
-     <table className="table table-striped" style={{ marginTop: 20 }}>
+     <h3 align="center" className="margin-top-10">Contest List</h3>
+     <table className="table table-striped margin-top-30">
        <thead>
          <tr>
            <th>Name</th>

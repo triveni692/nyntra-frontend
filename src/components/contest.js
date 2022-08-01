@@ -2,73 +2,66 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router";
 import { baseURL } from "../conf";
- 
-const Question = (props) => (
- <tr>
-   <td>{props.index}</td>
-   <td>{props.data.content}</td>
-   <td>{props.data.choices.join(';')}</td>
-   <td>{props.data.correctAnswer}</td>
-   
- </tr>
-);
+import Question from "./question";
+import "./contest.css";
  
 export default function Contest() {
- const [questions, setQuestions] = useState([]);
- const params = useParams();
+  const [questions, setQuestions] = useState([]);
+  const [contest, setContest] = useState([]);
+  const params = useParams();
  
- // This method fetches the contests from the database.
- useEffect(() => {
-   async function getQuestions() {
-     const id = params.id.toString();
-     console.log(id);
-     const response = await fetch(`${baseURL}/combat_question?contest_id=${id}`);
+  // This method fetches the contest data from the database.
+  useEffect(() => {
+    async function getContestData() {
+      const id = params.id.toString();
+     
+      const [q_res, c_res] = await Promise.all([
+        fetch(`${baseURL}/combat_question?contest_id=${id}`),
+        fetch(`${baseURL}/contest/${id}`)
+      ]);
+
+      if (!q_res.ok || !c_res.ok) {
+        const message = `An error occurred: ${q_res.statusText}`;
+        window.alert(message);
+        return;
+      }
  
-     if (!response.ok) {
-       const message = `An error occurred: ${response.statusText}`;
-       window.alert(message);
-       return;
-     }
+      const [contest, questions] = await Promise.all([
+        c_res.json() || [],
+        q_res.json() || []
+      ]);
+
+      setQuestions(questions);
+      setContest(contest);
+    }
  
-     const questions = await response.json() || [];
-     // question.sort((a, b) => new Date(b.starts_at) - new Date(a.starts_at));
-     setQuestions(questions);
-   }
+    getContestData();
  
-   getQuestions();
- 
-   return;
- }, [questions.length]);
+    return;
+  }, [questions.length]);
  
  
- // This method will map out the contests on the table
- function questionList() {
-   return questions.map((question, index) => {
-     return (
-       <Question
-         data={question}
-         index={index}
-         key={question._id}
-       />
-     );
-   });
- }
+  // This method will map out the contests on the table
+  function questionList() {
+    return questions.map((question, index) => {
+      return (
+        <Question
+          data={question}
+          index={index}
+          key={question._id}
+        />
+      );
+    });
+  }
  
- // This following section will display the table with the contests of individuals.
- return (
-   <div>
-     <h3>Question List</h3>
-     <table className="table table-striped" style={{ marginTop: 20 }}>
-       <thead>
-         <tr>
-           <th>Q No.</th>
-           <th>Question</th>
-           <th>Options</th>
-           <th>Answer</th>
-         </tr>
-       </thead>
-       <tbody>{questionList()}</tbody>
-     </table>
-   </div>
- );
+  // This following section will display the table with the contests of individuals.
+  return (
+    <div>
+      <h3 align="center" className="margin-top-10">{questions.length} Questions</h3>
+      <div align="center">({contest.duration} Minutes)</div>
+      <table className="table table-striped center margin-top-10">
+        <tbody>{questionList()}</tbody>
+      </table>
+    </div>
+  );
 }

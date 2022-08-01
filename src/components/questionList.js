@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { baseURL } from "../conf";
- 
+
 const Question = (props) => (
  <tr>
    <td>{props.question.question}</td>
@@ -70,8 +70,8 @@ export default function QuestionList() {
  // This following section will display the table with the questions of individuals.
  return (
    <div>
-     <h3>Question List</h3>
-     <table className="table table-striped" style={{ marginTop: 20 }}>
+     <h3 align="center" className="margin-top-10">Question List</h3>
+     <table style={{ width: '100%' }} className="table table-striped margin-top-30">
        <thead>
          <tr>
            <th>Question</th>
