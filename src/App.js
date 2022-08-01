@@ -8,6 +8,8 @@ import Navbar from "./components/navbar";
 import QuestionList from "./components/questionList";
 import Edit from "./components/edit";
 import Create from "./components/create";
+import Contest from "./components/contest";
+import ContestList from "./components/contestList"; 
  
 const App = () => {
  return (
@@ -17,6 +19,8 @@ const App = () => {
        <Route exact path="/" element={<QuestionList />} />
        <Route path="/edit/:id" element={<Edit />} />
        <Route path="/create" element={<Create />} />
+       <Route path="/contests" element={<ContestList />} />
+       <Route path="/contest/:id" element={<Contest />} />
      </Routes>
    </div>
  );
