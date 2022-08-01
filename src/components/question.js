@@ -21,10 +21,11 @@ class Question extends React.Component {
 	render () {
 		const {props} = this;
 		const choices = props.data.choices;
+		const isMobile = (window.innerWidth <= 768);
 
 		return (
 			<tr><td>
-				<table className="margin-top-30 border-10" width="1000px"><tbody>
+				<table className="margin-top-30 border-10" width={isMobile?"100%":"1000px"}><tbody>
 					<tr>
 					   <td colSpan={2}><b>Question {props.index + 1}</b></td>
 					</tr>
