@@ -17,8 +17,8 @@ class Login extends React.Component {
 	constructor(props){
 		super(props);
 		this.state = {
-			email: "triveni692@gmail.com",
-			password: "123",
+			email: "",
+			password: "",
 			redirect: Auth.isLoggedIn()
 		}
 	}

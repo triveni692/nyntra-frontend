@@ -35,6 +35,10 @@ export class Auth {
 		} catch(e) {}
 		return null;
 	}
+
+	static getToken() {
+		return localStorage.getItem("token") || '';
+	}
 }
 
 export class Api {
@@ -42,6 +46,7 @@ export class Api {
 		return fetch(`${baseURL}${endpoint}`, {
 			method: "GET",
 			headers: {
+				Authorization: `Bearer ${Auth.getToken()}`,
 				"Content-Type": "application/json",
 				...(headers || {})
 			}
@@ -52,6 +57,7 @@ export class Api {
 		return fetch(`${baseURL}${endpoint}`, {
 			method: "POST",
 			headers: {
+				Authorization: `Bearer ${Auth.getToken()}`,
 				"Content-Type": "application/json",
 				...(headers || {})
 			},
@@ -62,6 +68,7 @@ export class Api {
 		return fetch(`${baseURL}${endpoint}`, {
 			method: "DELETE",
 			headers: {
+				Authorization: `Bearer ${Auth.getToken()}`,
 				"Content-Type": "application/json",
 				...(headers || {})
 			}
