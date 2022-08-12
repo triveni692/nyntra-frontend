@@ -14,8 +14,10 @@ export class Auth {
 		items.forEach(key => localStorage.setItem(key, data[key]));
 	}
 
-	static logout() {
-		items.forEach(key => localStorage.removeItem(key));
+	static logout(token) {
+		if (!token || localStorage.getItem("token") === token) {
+			items.forEach(key => localStorage.removeItem(key));
+		}
 	}
 
 	static isLoggedIn() {
@@ -37,7 +39,16 @@ export class Auth {
 	}
 
 	static getToken() {
-		return localStorage.getItem("token") || '';
+		const token = localStorage.getItem("token") || '';
+		if (token) new Promise(() => {
+			try {
+				const expiry = localStorage.get("expires");
+				if (expiry && Number(expiry) < Math.floor(new Date() / 1000)) {
+					Auth.logout(token);
+				}
+			} catch(e) {}
+		})
+		return token;
 	}
 }
 
