@@ -1,3 +1,5 @@
+const baseURL = process.env.REACT_APP_BACKEND_URL || "http://localhost:5000";
+
 export function arrayed(str) {
     str = str || "";
     str = str.trim();
@@ -34,3 +36,36 @@ export class Auth {
 		return null;
 	}
 }
+
+export class Api {
+	static get(endpoint, headers) {
+		return fetch(`${baseURL}${endpoint}`, {
+			method: "GET",
+			headers: {
+				"Content-Type": "application/json",
+				...(headers || {})
+			}
+		});
+	}
+
+	static post(endpoint, body, headers) {
+		return fetch(`${baseURL}${endpoint}`, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+				...(headers || {})
+			},
+			body: body
+		})
+	}
+	static delete(endpoint, headers) {
+		return fetch(`${baseURL}${endpoint}`, {
+			method: "DELETE",
+			headers: {
+				"Content-Type": "application/json",
+				...(headers || {})
+			}
+		})
+	}
+}
+

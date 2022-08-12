@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { baseURL } from "../conf";
+import { Api, Auth } from "../utils";
 
-const Question = (props) => (
+const Question = ({ question, deleteQuestion, disabled }) => (
  <tr>
-   <td>{props.question.question}</td>
-   <td>{props.question.answer}</td>
-   <td>{props.question.options.join(';')}</td>
-   <td>{props.question.tags.join(';')}</td>
+   <td>{question.question}</td>
+   <td>{question.answer}</td>
+   <td>{question.options.join(';')}</td>
+   <td>{question.tags.join(';')}</td>
    <td>
-     <Link className="btn btn-link" to={`/edit/${props.question._id}`}>Edit</Link> |
-     <button className="btn btn-link"
+     <Link className="btn btn-link" to={`/edit/${question._id}`}>Edit</Link> |
+     <button className={`btn btn-link ${disabled&&'disabled'}`}
        onClick={() => {
-         props.deleteQuestion(props.question._id);
+         deleteQuestion(question._id);
        }}
      >
        Delete
@@ -27,7 +27,7 @@ export default function QuestionList() {
  // This method fetches the questions from the database.
  useEffect(() => {
    async function getQuestions() {
-     const response = await fetch(`${baseURL}/question/`);
+     const response = await Api.get(`/question/`);
  
      if (!response.ok) {
        const message = `An error occurred: ${response.statusText}`;
@@ -43,12 +43,11 @@ export default function QuestionList() {
  
    return;
  }, [questions.length]);
- 
+
+
  // This method will delete a question
  async function deleteQuestion(id) {
-   await fetch(`http://localhost:5000/${id}`, {
-     method: "DELETE"
-   });
+   await Api.delete(`/${id}`);
  
    const newQuestions = questions.filter((el) => el._id !== id);
    setQuestions(newQuestions);
@@ -56,12 +55,14 @@ export default function QuestionList() {
  
  // This method will map out the questions on the table
  function questionList() {
+   const disabled = !Auth.isLoggedIn();
    return questions.map((question) => {
      return (
        <Question
          question={question}
          deleteQuestion={() => deleteQuestion(question._id)}
          key={question._id}
+         disabled={disabled}
        />
      );
    });

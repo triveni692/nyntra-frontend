@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
-import { baseURL } from "../conf";
-import { Auth } from "../utils";
+import { Auth, Api } from "../utils";
 
  
 const Contest = (props) => (
@@ -24,7 +23,7 @@ export default function ContestList() {
  // This method fetches the contests from the database.
  useEffect(() => {
    async function getContests() {
-     const response = await fetch(`${baseURL}/contest`);
+     const response = await Api.get(`/contest`);
  
      if (!response.ok) {
        const message = `An error occurred: ${response.statusText}`;

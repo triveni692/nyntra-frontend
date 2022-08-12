@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router";
-import { arrayed } from "../utils";
-import { baseURL } from "../conf";
+import { Navigate } from "react-router-dom";
+import { arrayed, Auth, Api } from "../utils";
  
 export default function Edit() {
  const [form, setForm] = useState({
@@ -16,7 +16,7 @@ export default function Edit() {
  useEffect(() => {
    async function fetchData() {
      const id = params.id.toString();
-     const response = await fetch(`${baseURL}/question/${params.id.toString()}`);
+     const response = await Api.get(`/question/${params.id.toString()}`);
  
      if (!response.ok) {
        const message = `An error has occurred: ${response.statusText}`;
@@ -34,7 +34,7 @@ export default function Edit() {
      setForm(question);
    }
  
-   fetchData();
+   if (Auth.isLoggedIn()) fetchData();
  
    return;
  }, [params.id, navigate]);
@@ -55,18 +55,15 @@ export default function Edit() {
      tags: form.tags,
    };
 
-   // This will send a post request to update the data in the database.
-   await fetch(`${baseURL}/update/${params.id}`, {
-     method: "POST",
-     body: JSON.stringify(editedQuestion),
-     headers: {
-       'Content-Type': 'application/json'
-     },
-   });
+   await Api.post(`/update/${params.id}`, JSON.stringify(editedQuestion));
  
    navigate("/");
  }
- 
+
+ if (!Auth.isLoggedIn()) {
+    return <Navigate to={`/login?next=edit/${params.id}`} replace={true}/>
+ }
+
  // This following section will display the form that takes input from the user to update the data.
  return (
    <div>
