@@ -1,13 +1,17 @@
 import React from "react";
- 
-// We import bootstrap to make our application look better.
+
 import "bootstrap/dist/css/bootstrap.css";
- 
-// We import NavLink to utilize the react router.
 import { NavLink } from "react-router-dom";
+
+import { Auth } from "../utils";
 
 const logo = window.location.origin + "/logo.png";
  
+function logout() {
+  Auth.logout();
+  window.location.reload();
+}
+
 // Here, we display our Navbar
 export default function Navbar() {
  return (
@@ -20,8 +24,11 @@ export default function Navbar() {
        <ul class="navbar-nav ms-auto">
             <li class="nav-item">
                 <NavLink className="navbar-brand btn btn-outline-info btn-lg" to="/contests">
-		       		Contests
-		       </NavLink>
+		       		    Contests
+		            </NavLink>
+            </li>
+            <li class="nav-item">
+              {Auth.isLoggedIn() && <button onClick={logout} class="navbar-brand btn btn-outline-danger">Logout</button>}
             </li>
         </ul>
      </nav>
