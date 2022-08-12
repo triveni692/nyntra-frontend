@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { useParams } from "react-router";
-import { baseURL } from "../conf";
-import { Auth } from "../utils";
+import { Auth, Api } from "../utils";
 import Question from "./question";
 import "./contest.css";
  
@@ -17,8 +16,8 @@ export default function Contest() {
       const id = params.id.toString();
      
       const [q_res, c_res] = await Promise.all([
-        fetch(`${baseURL}/combat_question?contest_id=${id}`),
-        fetch(`${baseURL}/contest/${id}`)
+        Api.get(`/combat_question?contest_id=${id}`),
+        Api.get(`/contest/${id}`)
       ]);
 
       if (!q_res.ok || !c_res.ok) {

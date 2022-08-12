@@ -1,7 +1,6 @@
 import React from "react";
-import { baseURL } from "../conf";
 import { Navigate } from "react-router-dom"
-import { Auth } from "../utils";
+import { Auth, Api } from "../utils";
 
 function next() {
 	let s = window.location.search;
@@ -18,8 +17,8 @@ class Login extends React.Component {
 	constructor(props){
 		super(props);
 		this.state = {
-			email: "triveni692@gmail.com",
-			password: "123",
+			email: "",
+			password: "",
 			redirect: Auth.isLoggedIn()
 		}
 	}
@@ -27,16 +26,11 @@ class Login extends React.Component {
 	handleSubmit = async e => {
 		e.preventDefault();
 		
-		const res = await fetch(`${baseURL}/login`, {
-     	method: "POST",
-     	headers: {
-       	"Content-Type": "application/json",
-     	},
-     	body: JSON.stringify({
+		const res = await Api.post(`/login`, JSON.stringify({
 				email: this.state.email,
 				password: this.state.password
-			}),
-   	}).catch(e => {
+		}))
+		.catch(e => {
    		console.log(e);
    		alert("Some error occured!");
    	});
