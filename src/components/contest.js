@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { useParams } from "react-router";
 import { baseURL } from "../conf";
+import { Auth } from "../utils";
 import Question from "./question";
 import "./contest.css";
  
@@ -35,7 +36,7 @@ export default function Contest() {
       setContest(contest);
     }
  
-    getContestData();
+    if (Auth.isLoggedIn()) getContestData();
  
     return;
   }, [questions.length]);
@@ -52,6 +53,10 @@ export default function Contest() {
         />
       );
     });
+  }
+
+  if (!Auth.isLoggedIn()) {
+    return <Navigate to={`/login?next=contest/${params.id}`} replace={true}/>
   }
  
   // This following section will display the table with the contests of individuals.

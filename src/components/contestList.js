@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { baseURL } from "../conf";
+import { Auth } from "../utils";
+
  
 const Contest = (props) => (
  <tr>
@@ -35,7 +37,7 @@ export default function ContestList() {
      setContests(contests);
    }
  
-   getContests();
+   if (Auth.isLoggedIn()) getContests();
  
    return;
  }, [contests.length]);
@@ -53,6 +55,9 @@ export default function ContestList() {
    });
  }
  
+ if (!Auth.isLoggedIn()) {
+    return <Navigate to="/login?next=contests" replace={true} />
+ }
  // This following section will display the table with the contests of individuals.
  return (
    <div>
