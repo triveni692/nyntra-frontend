@@ -61,8 +61,8 @@ export default function Contest() {
   // This following section will display the table with the contests of individuals.
   return (
     <div>
-      <h3 align="center" className="margin-top-10">{questions.length} Questions</h3>
-      <div align="center">({contest.duration} Minutes)</div>
+      <h3 align="center" className="margin-top-10">{contest.name}</h3>
+      <div align="center">({questions.length} Questions | {contest.duration} Minutes)</div>
       <table className="table table-striped center margin-top-10">
         <tbody>{questionList()}</tbody>
       </table>
