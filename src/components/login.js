@@ -70,16 +70,16 @@ class Login extends React.Component {
 			<div align="center" className="margin-top-30">
 				<h1>Login To View</h1>
 				<form style={{width: "600px"}} onSubmit={this.handleSubmit}>
-				  <div class="mb-3">
+				  <div className="mb-3">
 				    <input
 				    	type="email"
-				    	class={`form-control ${invalid_email?'border-danger':''}`}
+				    	className={`form-control ${invalid_email?'border-danger':''}`}
 				    	placeholder="Email Address"
 				    	value={this.state.email}
 				    	onChange={e => this.setState({ email: e.target.value })}
 				    />
 				  </div>
-				  <div class="mb-3">
+				  <div className="mb-3">
 				    <input 
 				    	type="password"
 				    	className={`form-control ${invalid_pass?'border-danger':''}`}
@@ -90,7 +90,7 @@ class Login extends React.Component {
 				  </div>
 				  {err && <div className="text-danger">Login failed! { err }</div> }
 				  {success && <div className="text-success">Login successful! Redirecting ...</div> }
-				  <button type="submit" class="btn btn-primary margin-top-30">Login</button>
+				  <button type="submit" className="btn btn-primary margin-top-30">Login</button>
 				</form>
 			</div>
 		);

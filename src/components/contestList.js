@@ -2,16 +2,17 @@ import React, { useEffect, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { Auth, Api } from "../utils";
 
- 
-const Contest = (props) => (
+const now = new Date().toISOString();
+
+const Contest = ({ data }) => (
  <tr>
    <td>
-     <Link className="btn btn-link" to={`/contest/${props.data._id}`}>{props.data.name}</Link>
+     <Link className={`btn btn-link ${data.starts_at>now?'disabled':''}`} to={`/contest/${data._id}`}>{data.name}</Link>
    </td>
-   <td>{props.data.starts_at}</td>
-   <td>{props.data.topics.join(';')}</td>
+   <td>{data.starts_at}</td>
+   <td>{data.topics.join(';')}</td>
    <td>
-     <a href={props.data.u_contest_url} target="_blank">{props.data.u_contest_url}</a>
+     <a href={data.u_contest_url} target="_blank">{data.u_contest_url}</a>
    </td>
    
  </tr>

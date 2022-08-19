@@ -21,14 +21,14 @@ export default function Navbar() {
        <img style={{"width" : 30 + '%'}} src={logo}></img>
        </NavLink>
 
-       <ul class="navbar-nav ms-auto">
-            <li class="nav-item">
+       <ul className="navbar-nav ms-auto">
+            <li className="nav-item">
                 <NavLink className="navbar-brand btn btn-outline-info btn-lg" to="/contests">
 		       		    Contests
 		            </NavLink>
             </li>
-            <li class="nav-item">
-              {Auth.isLoggedIn() && <button onClick={logout} class="navbar-brand btn btn-outline-danger">Logout</button>}
+            <li className="nav-item">
+              {Auth.isLoggedIn() && <button onClick={logout} className="navbar-brand btn btn-outline-danger">Logout</button>}
             </li>
         </ul>
      </nav>
