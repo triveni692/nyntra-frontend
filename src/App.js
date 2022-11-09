@@ -9,7 +9,8 @@ import QuestionList from "./components/questionList";
 import Edit from "./components/edit";
 import Create from "./components/create";
 import Contest from "./components/contest";
-import ContestList from "./components/contestList"; 
+import ContestList from "./components/contestList";
+import TestSeries from "./components/testSeries";
 import Login from "./components/login";
  
 const App = () => {
@@ -22,6 +23,7 @@ const App = () => {
        <Route path="/edit/:id" element={<Edit />} />
        <Route path="/create" element={<Create />} />
        <Route path="/contests" element={<ContestList />} />
+       <Route path="/test-series" element={<TestSeries/>} />
        <Route path="/contest/:id" element={<Contest />} />
      </Routes>
    </div>

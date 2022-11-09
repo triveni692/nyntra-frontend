@@ -23,7 +23,7 @@ export default function Navbar() {
 
        <ul className="navbar-nav ms-auto">
             <li className="nav-item">
-                <NavLink className="navbar-brand btn btn-outline-info btn-lg" to="/contests">
+                <NavLink className="navbar-brand btn btn-outline-info btn-lg" to="/test-series">
 		       		    Contests
 		            </NavLink>
             </li>
