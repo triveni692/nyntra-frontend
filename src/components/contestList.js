@@ -69,7 +69,7 @@ export default function ContestList() {
  }
  
  if (!Auth.isLoggedIn()) {
-    return <Navigate to="/login?next=contests" replace={true} />
+    return <Navigate to="/login?next=test_series" replace={true} />
  }
  // This following section will display the table with the contests of individuals.
  return (
