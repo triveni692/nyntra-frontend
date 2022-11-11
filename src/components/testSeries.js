@@ -57,7 +57,7 @@ export default function TestSeries() {
  return (
    <div>
      <h3 align="center" className="margin-top-10">Test Groups</h3>
-     <table className="table table-striped margin-top-30">
+     <table align="center" className="table table-striped margin-top-30">
        <thead>
          <tr>
            <th>Sl No.</th>
