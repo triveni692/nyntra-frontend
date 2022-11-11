@@ -1,0 +1,118 @@
+.center {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.table {
+	width: auto;
+}
+
+.margin-top-30 {
+	margin-top: 30px;
+}
+.margin-bottom-30 {
+  margin-bottom: 30px;
+}
+.margin-top-10 {
+	margin-top: 10px;
+}
+.padding-left-10 {
+	padding-left: 10px;
+}
+
+.tr-border-top {
+  border-top-width: 2px;
+}
+.td-border-right {
+  border-right-width: 1px;
+  border-right-color: #212529;
+}
+
+.border-10 {
+	border-spacing: 10px;
+	border-collapse: initial !important;
+}
+
+.option-status {
+  width: 20px;
+  height: 20px;
+  transition: background 1s;
+}
+
+.left-panel {
+  position: absolute;
+  top: 130px;
+  bottom: 0;
+  left: 30px;
+  width: 20%;
+  padding-top: 20px;
+  overflow-y: scroll;
+  background-color: #DBF3FA;
+}
+
+.left-panel-wide {
+  width: 40%;
+}
+
+.right-panel {
+  position: absolute;
+  top: 220px;
+  bottom: 0;
+  right: 0;
+  overflow-y: scroll;
+  width: 80%;
+}
+
+.right-panel-small {
+  width: 60%;
+  top: 130px;
+  padding-left: 40px;
+  padding-right: 30px;
+}
+
+@keyframes animate {
+  0% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 0.7;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+.blink {
+  animation: animate 2s linear infinite;
+}
+
+.dot {
+  display: inline-block;
+  border-radius: 50%;
+  width: 50%;
+  background-color: #EEE;
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  margin-left: 5px;
+}
+.dot.dot-success {
+  background-color: #228B22;
+}
+.dot.dot-warning {
+  background-color: #F0AD4E;
+}
+.dot.dot-danger {
+  background-color: #D9534F;
+}
+.dot.dot-sm {
+  height: 7px;
+  width: 7px;
+}
+.dot.dot-lg {
+  margin: 0 4px;
+  height: 20px;
+  width: 20px;
+}

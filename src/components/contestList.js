@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Link, Navigate, useSearchParams } from "react-router-dom";
-import { Auth, Api } from "../utils";
+import { Auth, Api, formatTime } from "../utils";
+import StartContest from "./startContest";
+
+const ExternalLink = "/icons/external_link.png";
 
 const now = new Date().toISOString();
 
@@ -8,12 +11,18 @@ const Contest = ({ data, index }) => (
  <tr>
    <td>{index+1}</td>
    <td>
-     <Link className={`btn btn-link ${data.starts_at>now?'disabled':''}`} to={`/contest/${data._id}`}>{data.name}</Link>
+     <Link className={`btn btn-link ${data.starts_at>now?'disabled':''}`} to={`/contest/${data._id}/details`}>{data.name}</Link>
    </td>
-   <td>{data.starts_at}</td>
+   <td>{formatTime(data.starts_at)}</td>
    <td>{data.topics.join(';')}</td>
-   <td>
-     <a href={data.u_contest_url} target="_blank">{data.u_contest_url}</a>
+   <td style={{textAlign: 'center'}}>
+     <a href={`/contest/${data._id}/view`}>View</a>
+   </td>
+   <td style={{textAlign: 'center'}}>
+     <StartContest contest={data} />
+   </td>
+   <td style={{textAlign: 'center'}}> 
+     <a href={data.u_contest_url} target="_blank"><img src={ExternalLink} className="option-status"/> </a>
    </td>
    
  </tr>
@@ -69,11 +78,13 @@ export default function ContestList() {
      <table className="table table-striped margin-top-30">
        <thead>
          <tr>
-           <th>Sl No.</th>
-           <th>Name</th>
-           <th>Contest Time</th>
-           <th>Topics</th>
-           <th>External URL</th>
+           <th style={{width: '2%'}} >No.</th>
+           <th style={{width: '20%', textAlign: 'center'}}>Name</th>
+           <th style={{width: '8%'}}>Contest Time</th>
+           <th style={{width: '40%', textAlign: 'center'}}>Topics</th>
+           <th style={{width: '10%', textAlign: 'center'}}>View Questions</th>
+           <th style={{width: '10%', textAlign: 'center'}}>Participate</th>
+           <th style={{width: '10%', textAlign: 'center'}}>External Link</th>
          </tr>
        </thead>
        <tbody>{contestList()}</tbody>

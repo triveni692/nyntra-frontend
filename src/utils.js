@@ -72,7 +72,7 @@ export class Api {
 				"Content-Type": "application/json",
 				...(headers || {})
 			},
-			body: body
+			body: JSON.stringify(body)
 		})
 	}
 	static delete(endpoint, headers) {
@@ -85,5 +85,18 @@ export class Api {
 			}
 		})
 	}
+}
+
+export function upto2decimal(n) {
+	if (n === Math.floor(n)) return n;
+	return n.toFixed(2);
+}
+
+export function computeScore(attempt) {
+	return upto2decimal(attempt.correct_n * 2 - attempt.incorrect_n * 2 / 3);
+}
+
+export function formatTime(time_s) {
+	return new Date(time_s).toLocaleDateString('en-IN', {month: 'short', day: 'numeric', year: 'numeric'});
 }
 

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Link, Navigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { useParams } from "react-router";
 import { Auth, Api } from "../utils";
 import Question from "./question";
-import "./contest.css";
+import "./index.css";
  
-export default function Contest() {
+export default function ContestProblems() {
   const [questions, setQuestions] = useState([]);
   const [contest, setContest] = useState([]);
   const params = useParams();
