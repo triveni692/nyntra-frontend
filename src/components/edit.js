@@ -55,7 +55,7 @@ export default function Edit() {
      tags: form.tags,
    };
 
-   await Api.post(`/update/${params.id}`, JSON.stringify(editedQuestion));
+   await Api.post(`/update/${params.id}`, editedQuestion);
  
    navigate("/");
  }

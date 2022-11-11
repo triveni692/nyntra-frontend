@@ -5,10 +5,11 @@ import { Route, Routes } from "react-router-dom";
  
 // We import all the components we need in our app
 import Navbar from "./components/navbar";
-import QuestionList from "./components/questionList";
 import Edit from "./components/edit";
 import Create from "./components/create";
-import Contest from "./components/contest";
+import Attempt from "./components/attempt";
+import ContestProblems from "./components/contestProblems";
+import ContestDetails from "./components/contestDetails";
 import ContestList from "./components/contestList";
 import TestSeries from "./components/testSeries";
 import Login from "./components/login";
@@ -18,13 +19,15 @@ const App = () => {
    <div>
      <Navbar />
      <Routes>
-       <Route exact path="/" element={<QuestionList />} />
+       <Route exact path="/" element={<TestSeries />} />
        <Route path="/login" element={<Login />} />
        <Route path="/edit/:id" element={<Edit />} />
        <Route path="/create" element={<Create />} />
        <Route path="/contests" element={<ContestList />} />
        <Route path="/test-series" element={<TestSeries/>} />
-       <Route path="/contest/:id" element={<Contest />} />
+       <Route path="/contest/:cid/attempt/:aid" element={<Attempt/>} />
+       <Route path="/contest/:id/view" element={<ContestProblems />} />
+       <Route path="/contest/:id/details" element={<ContestDetails />} />
      </Routes>
    </div>
  );

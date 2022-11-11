@@ -26,10 +26,10 @@ class Login extends React.Component {
 	handleSubmit = async e => {
 		e.preventDefault();
 		
-		const res = await Api.post(`/login`, JSON.stringify({
+		const res = await Api.post(`/login`, {
 				email: this.state.email,
 				password: this.state.password
-		}))
+		})
 		.catch(e => {
    		console.log(e);
    		alert("Some error occured!");

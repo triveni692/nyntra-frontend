@@ -40,9 +40,9 @@ class Question extends React.Component {
 						{this.getOption(2, choices)}
 						{this.getOption(3, choices)}
 					</tr>
-					<tr>
+					{this.props.analysis && <tr>
 						<td colSpan={2}><div className="btn btn-outline-primary" onClick={()=>this.setState({show_answer: !this.state.show_answer})} >Show Answer</div></td>
-					</tr>
+					</tr>}
 					{this.state.show_answer &&
 						<tr>
 							<td colSpan={2}><div dangerouslySetInnerHTML={{__html: props.data.solution_explanation}}></div></td>
