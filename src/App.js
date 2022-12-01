@@ -13,24 +13,26 @@ import ContestDetails from "./components/contestDetails";
 import ContestList from "./components/contestList";
 import TestSeries from "./components/testSeries";
 import Login from "./components/login";
+import Quiz from "./components/quiz";
  
 const App = () => {
- return (
-   <div>
-     <Navbar />
-     <Routes>
-       <Route exact path="/" element={<TestSeries />} />
-       <Route path="/login" element={<Login />} />
-       <Route path="/edit/:id" element={<Edit />} />
-       <Route path="/create" element={<Create />} />
-       <Route path="/contests" element={<ContestList />} />
-       <Route path="/test-series" element={<TestSeries/>} />
-       <Route path="/contest/:cid/attempt/:aid" element={<Attempt/>} />
-       <Route path="/contest/:id/view" element={<ContestProblems />} />
-       <Route path="/contest/:id/details" element={<ContestDetails />} />
-     </Routes>
-   </div>
- );
+  return (
+    <div>
+      <Navbar />
+      <Routes>
+        <Route exact path="/" element={<TestSeries />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/edit/:id" element={<Edit />} />
+        <Route path="/create" element={<Create />} />
+        <Route path="/contests" element={<ContestList />} />
+        <Route path="/test-series" element={<TestSeries/>} />
+        <Route path="/contest/:cid/attempt/:aid" element={<Attempt/>} />
+        <Route path="/contest/:id/view" element={<ContestProblems />} />
+        <Route path="/contest/:id/details" element={<ContestDetails />} />
+        <Route path="/quiz" element={<Quiz/>}/>
+      </Routes>
+    </div>
+  );
 };
  
 export default App;
