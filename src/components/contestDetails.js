@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useParams } from "react-router";
 import { Auth, Api, formatTime, computeScore } from "../utils";
 import Question from "./question";
@@ -14,6 +14,7 @@ export default function Contest() {
   const [contest, setContest] = useState({topics: []});
   const navigate = useNavigate();
   const params = useParams();
+  const [searchParams] = useSearchParams();
  
   // This method fetches the contest data from the database.
   useEffect(() => {
@@ -46,10 +47,24 @@ export default function Contest() {
     else navigate(`/login?next=contest/${id}/details`);
   }, [attempts.length]);
 
+  async function deleteAttempt(a) {
+    let res = await Api.delete(`/attempt/${a._id}`);
+    if (!res.ok) {
+      try {console.log(JSON.stringify(res));} catch(e) {};
+      window.alert('Failed to delete, check console!');
+    }
+    else {
+      const id = params.id.toString();
+      const attempts = await Api.get(`/attempt?contest=${id}`);
+      setAttempts(await attempts.json());
+    }
+  }
+
   const curr_t = new Date().toISOString();
+  const showDelete = searchParams.get("delete") === "true";
 
   function renderAttempts() {
-    const style = {textAlign: "center", width: '19%'};
+    const style = {textAlign: "center", width: `${showDelete?16:19}%`};
     return (
       <table className="table table-striped center margin-top-10">
         <thead><tr>
@@ -59,6 +74,7 @@ export default function Contest() {
           <th style={style}>Incorrect <img className="option-status" src={RedCross}/> </th>
           <th style={style}>Unmarked </th>
           <th style={style}>Marks Scored/Total </th>
+          {showDelete ? <th style={style}>Action</th>: ''}
         </tr></thead>
         <tbody>
           {attempts.map((a, idx) => (
@@ -66,12 +82,15 @@ export default function Contest() {
               <td style={{width: '5%'}}>{idx+1}</td>
               <td style={style}>
                 <a href={`/contest/${contest._id}/attempt/${a._id}`}>{formatTime(a.starts_at)}</a>
-                {a.ends_at>curr_t? <span class='dot dot-sm dot-success blink'/>:''}
+                {a.ends_at>curr_t? <span className='dot dot-sm dot-success blink'/>:''}
               </td>
               <td style={style}>{a.correct_n}</td>
               <td style={style}>{a.incorrect_n}</td>
               <td style={style}>{a.unmarked_n}</td>
               <td style={style}>{computeScore(a)}/{a.total_n * 2} </td>
+              {showDelete? <td style={style}>
+                <button className="btn btn-danger" onClick={()=>deleteAttempt(a)}>Delete</button>
+              </td>: ''}
             </tr>
           ))}
         </tbody>

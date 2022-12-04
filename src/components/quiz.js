@@ -29,6 +29,19 @@ const quesions = [
 	{t: 'Place', q: 'Mazhar-e-Sharif', a: 'Afghanistan'},
 	{t: 'Place', q: 'Zaranj', a: 'Afghanistan'},
 	{t: 'Place', q: 'Delaram', a: 'Afghanistan'},
+	{t: 'Active Volcano', q: 'Mt. Sinabung', a: 'Indonesia'},
+	{t: 'Active Volcano', q: 'Mt. Karakatoa', a: 'Indonesia'},
+	{t: 'Active Volcano', q: 'Mt. Merapi', a: 'Indonesia'},
+	{t: 'Active Volcano', q: 'Mt. Agong', a: 'Indonesia'},
+	{t: 'Active Volcano', q: 'Mt. Batur', a: 'Indonesia'},
+	{t: 'Active Volcano', q: 'Mt. Taal', a: 'Philippines'},
+	{t: 'Active Volcano', q: 'Mt. Pintubo', a: 'Philippines'},
+	{t: 'Active Volcano', q: 'Mt. Mayon', a: 'Philippines'},
+	{t: 'Mountain', q: 'Zagros', 'a': 'Iran'},
+	{t: 'Mountain', q: 'Elburz', 'a': 'Iran'},
+	{t: 'Active Volcano', q: 'Mt. Damavand', 'a': 'Iran'},
+
+	// {t: 'Volcano', q: '', a: ''},
 ];
 
 function Question({data}) {
