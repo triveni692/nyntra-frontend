@@ -53,11 +53,7 @@ export default function Contest() {
       try {console.log(JSON.stringify(res));} catch(e) {};
       window.alert('Failed to delete, check console!');
     }
-    else {
-      const id = params.id.toString();
-      const attempts = await Api.get(`/attempt?contest=${id}`);
-      setAttempts(await attempts.json());
-    }
+    else setAttempts([]);
   }
 
   const curr_t = new Date().toISOString();

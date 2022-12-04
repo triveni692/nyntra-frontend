@@ -3,26 +3,30 @@ import { Link, Navigate, useSearchParams } from "react-router-dom";
 import { Auth, Api, formatTime } from "../utils";
 import StartContest from "./startContest";
 
-const ExternalLink = "/icons/external_link.png";
+const [externalLink, tick] = [
+  "/icons/external_link.png",
+  "/icons/tick.png",
+];
 
 const now = new Date().toISOString();
 
-const Contest = ({ data, index }) => (
+const Contest = ({ data: c, index }) => (
  <tr>
    <td>{index+1}</td>
    <td>
-     <Link className={`btn btn-link ${data.starts_at>now?'disabled':''}`} to={`/contest/${data._id}/details`}>{data.name}</Link>
+     <Link className={`btn-link ${c.starts_at>now?'disabled':''}`} to={`/contest/${c._id}/details`}>{c.name}</Link>
    </td>
-   <td>{formatTime(data.starts_at)}</td>
-   <td>{data.topics.join(';')}</td>
-   <td style={{textAlign: 'center'}}>
-     <a href={`/contest/${data._id}/view`}>View</a>
+   <td>{formatTime(c.starts_at)}</td>
+   <td>{c.topics.join(';')}</td>
+   <td style={{textAlign: 'center', paddingRight: `${c.attempted?0:30}px`}}>
+     <a href={`/contest/${c._id}/view`}>View</a>
+     {c.attempted?<img src={tick} className="option-status margin-left-10"/>:''}
    </td>
    <td style={{textAlign: 'center'}}>
-     <StartContest contest={data} />
+     <StartContest contest={c} />
    </td>
    <td style={{textAlign: 'center'}}> 
-     <a href={data.u_contest_url} target="_blank"><img src={ExternalLink} className="option-status"/> </a>
+     <a href={c.u_contest_url} target="_blank"><img src={externalLink} className="option-status"/> </a>
    </td>
    
  </tr>
